@@ -4,7 +4,7 @@ import sys
 
 
 # put your image path here
-image_path = 'img.jpg'
+image_path = 'img.jpeg'
 
 
 def login_usr(username, password):
