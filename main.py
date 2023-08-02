@@ -19,7 +19,7 @@ def login_usr(username, password):
 def get_followings(cl, user_id):
     my_user_following = cl.user_following(user_id)
 
-    print(f'sending your message to {len(my_user_following)} people...')
+    print(f'got your following accounts: {len(my_user_following)} accounts')
     return my_user_following
 
 
@@ -40,12 +40,29 @@ def get_msg():
     return txt
 
 
+def exclude_ids(cl, following_dict):
+    with open('exclude.txt', 'r', encoding='utf-8') as ex_ids:
+        ex_ids_list = ex_ids.read().splitlines()
+        ex_ids.close()
+
+    for id in ex_ids_list:
+        print(f'removing {id} from the list...')
+        id = cl.user_id_from_username(id)
+        try:
+            del following_dict[id]
+        except:
+            pass
+
+    print(f'sending your message to {len(following_dict)} people after excluding some...')
+    return following_dict
+
 def main(username, password):
     cl, my_user_id = login_usr(username, password)
 
     txt = get_msg()
 
     following_dict = get_followings(cl, my_user_id)
+    following_dict = exclude_ids(cl, following_dict)
 
     for user_id in following_dict:
         cl.direct_send_photo(Path(image_path), [user_id])
