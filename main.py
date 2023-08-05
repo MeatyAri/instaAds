@@ -45,16 +45,25 @@ def exclude_ids(cl, following_dict):
         ex_ids_list = ex_ids.read().splitlines()
         ex_ids.close()
 
-    for id in ex_ids_list:
-        print(f'removing {id} from the list...')
-        id = cl.user_id_from_username(id)
+    for user_id in ex_ids_list:
+        print(f'removing {user_id} from the list...')
+        user_id = cl.user_id_from_username(user_id)
         try:
-            del following_dict[id]
+            del following_dict[user_id]
         except:
             pass
 
     print(f'sending your message to {len(following_dict)} people after excluding some...')
     return following_dict
+
+
+def get_following_log(following_dict):
+    with open('following_log.txt', 'w') as f:
+        user_followings_list = list(following_dict.keys())
+        f.writelines('\n'.join(user_followings_list))
+
+    print('done logged all following ids in following_log.txt')
+
 
 def main(username, password):
     cl, my_user_id = login_usr(username, password)
@@ -62,14 +71,20 @@ def main(username, password):
     txt = get_msg()
 
     following_dict = get_followings(cl, my_user_id)
+    get_following_log(following_dict)
+
     following_dict = exclude_ids(cl, following_dict)
 
     for user_id in following_dict:
-        cl.direct_send_photo(Path(image_path), [user_id])
-        cl.direct_send(txt, [user_id])
-
         usershort_dict = following_dict[user_id].dict()
         u_name = usershort_dict['username']
+        full_name = usershort_dict['full_name']
+
+        out_txt = txt.replace("<full_name>", full_name)
+
+        cl.direct_send_photo(Path(image_path), [user_id])
+        cl.direct_send(out_txt, [user_id])
+
         print(f'successful: sent to {u_name}')
 
 
