@@ -80,7 +80,8 @@ def main(username, password):
         u_name = usershort_dict['username']
         full_name = usershort_dict['full_name']
 
-        out_txt = txt.replace("<full_name>", full_name)
+        out_txt = txt.replace("<u_name>", u_name)
+        out_txt = out_txt.replace("<full_name>", full_name)
 
         cl.direct_send_photo(Path(image_path), [user_id])
         cl.direct_send(out_txt, [user_id])
