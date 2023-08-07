@@ -2,6 +2,8 @@
 
 <img src="./readme_imgs/instaAds.jpeg" width="100px">
 
+# This project is receiving major updates so Docs might not be updated rn
+
 ## Description
 
 instaAds is a Python program that simplifies and automates the process of advertising your work on Instagram. With this package, you can streamline your ad campaigns, target the right audience, all through a CLI that can be accessed by your linux or window terminal.
