@@ -2,7 +2,9 @@
 
 <img src="./readme_imgs/instaAds.jpeg" width="100px">
 
-# This project is receiving major updates so Docs might not be updated rn
+<b>
+Please note that this GitHub repository is currently not being actively maintained. The reason for this is the ongoing challenges with Instagram's policies, which include frequent account bans and difficulties in creating and managing accounts on the platform. We apologize for any inconvenience and thank you for your understanding. Feel free to explore the existing code and resources, but be aware that updates and support may be limited at this time.
+</b>
 
 ## Description
 
